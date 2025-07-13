@@ -22,6 +22,7 @@ function App() {
     // Si aucun thème n'est sauvegardé, on vérifie les préférences système
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
+  const [searchTerm, setSearchTerm] = useState('');
   const [genderFilter, setGenderFilter] = useState<'male' | 'female' | undefined>(undefined)
   const { data, isLoading, isError } = useUsers(genderFilter)
 
@@ -42,8 +43,13 @@ function App() {
     }
   }, [isDarkMode]);
 
+  const filteredUsers = data?.filter(user =>
+    user.name.first.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.name.last.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || [];
+
   return (
-    <div className="min-h-screen p-10 bg-[#fefabe] dark:bg-zinc-900">
+    <div className="min-h-screen p-10 bg-white dark:bg-zinc-900">
       <Toaster position="bottom-right" />
       <h1 className="text-3xl font-bold text-orange-600 dark:text-white mb-8">
         PeopleFind
@@ -54,7 +60,12 @@ function App() {
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <Search className="h-5 w-5 text-gray-400" />
           </div>
-          <input type="text" placeholder="Recherchez quelqu'un..." className="block w-full pl-10 pr-3 py-2 rounded-md bg-white dark:bg-zinc-800 text-gray-900 dark:text-white border border-gray-300 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input
+            type="text"
+            placeholder="Recherchez quelqu\'un..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="block w-full pl-10 pr-3 py-2 rounded-md bg-white dark:bg-zinc-800 text-gray-900 dark:text-white border border-gray-300 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div className="flex gap-4 items-center">
           <div className="relative">
@@ -117,7 +128,7 @@ function App() {
         }
       >
         {/* Note : Le composant UserCard doit gérer son propre affichage en fonction du contexte de la vue (grille ou liste) */}
-        {data?.map((user) => (
+        {filteredUsers?.map((user) => (
           <UserCard
             key={user.login.uuid}
             user={user}
