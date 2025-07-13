@@ -13,9 +13,7 @@ export const UserCard = ({ user, onClick, isListView }: Props) => {
   // Rendu de la vue simple (Liste)
   if (isListView) {
     return (
-      <div
-        // Conteneur de la carte de liste : style épuré, survolable, flex pour alignement horizontal
-        className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-4 flex items-center justify-between cursor-pointer border border-gray-200 dark:border-zinc-700 hover:shadow-lg transition duration-200"
+      <div className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-4 flex items-center justify-between cursor-pointer border border-gray-200 dark:border-zinc-700 hover:shadow-lg transition duration-200"
         onClick={onClick}
       >
         <div className="flex items-center space-x-5 flex-grow">
@@ -23,12 +21,12 @@ export const UserCard = ({ user, onClick, isListView }: Props) => {
           <img
             src={user.picture.thumbnail}
             alt={`Photo de ${user.name.first}`}
-            className="w-16 h-16 rounded-full border-4 dark:border-[#212121]"
+            className="w-16 h-16 rounded-full "
           />
-          
+
           <div className="flex flex-col space-y-1">
             {/* Nom */}
-            <h3 className="font-bold text-xl text-purple-500 dark:text-white">
+            <h3 className="font-bold text-xl text-gray-900 dark:text-white">
               {user.name.first} {user.name.last}
             </h3>
             {/* Localisation */}
@@ -40,7 +38,7 @@ export const UserCard = ({ user, onClick, isListView }: Props) => {
 
         {/* Section des actions et contact (cachée sur petits écrans pour garder la liste propre) */}
         <div className="hidden lg:flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400">
-          
+
           {/* Contact (mail et numéro) */}
           <div className="flex flex-col items-end">
             <p className="text-gray-900 dark:text-gray-100 font-semibold">{user.email}</p>
@@ -49,8 +47,8 @@ export const UserCard = ({ user, onClick, isListView }: Props) => {
 
           {/* Boutons d'action */}
           <div className="flex space-x-3">
-            <button 
-              className="p-2 rounded-full bg-[#212121] border-none text-white hover:bg-blue-600 transition" 
+            <button
+              className="p-2 rounded-full bg-gray-700 dark:bg-zinc-700 border-none text-white hover:bg-blue-600 transition"
               title="Ajouter"
               onClick={(e) => {
                 e.stopPropagation()
@@ -59,12 +57,12 @@ export const UserCard = ({ user, onClick, isListView }: Props) => {
             >
               <UserPlus2 size={20} />
             </button>
-            <button 
-              className="p-2 rounded-full bg-[#212121] border-none text-white hover:bg-green-600 transition" 
+            <button
+              className="p-2 rounded-full bg-gray-700 dark:bg-zinc-700 border-none text-white hover:bg-green-600 transition"
               title="Envoyer un message"
               onClick={(e) => {
                 e.stopPropagation()
-                toast('Message envoyé !', { icon: <MessageSquareDot/> })
+                toast('Message envoyé !', { icon: <MessageSquareDot /> })
               }}
             >
               <MessageCircleMoreIcon size={20} />
@@ -75,9 +73,9 @@ export const UserCard = ({ user, onClick, isListView }: Props) => {
     );
   }
 
-  // Rendu de la vue en grille (votre code original, avec correction de l'onClick)
+  
   return (
-    <div 
+    <div
       className='bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition cursor-pointer dark:bg-zinc-800'
       onClick={onClick} // L'onClick est sur le conteneur principal pour la grille
     >
@@ -100,23 +98,23 @@ export const UserCard = ({ user, onClick, isListView }: Props) => {
             {user.email}
           </p>
           <div className="mt-5 flex justify-between">
-            <button 
+            <button
               className="bg-gray-200 dark:bg-zinc-700 rounded-xl p-3 text-gray-900 dark:text-white"
               onClick={(e) => {
                 e.stopPropagation()
                 toast.success(`${user.name.first} a été ajouté(e) !`)
               }}
             >
-              <UserPlus2 size={20}/>
+              <UserPlus2 size={20} />
             </button>
-            <button 
+            <button
               className="bg-gray-200 dark:bg-zinc-700 rounded-xl p-2 text-gray-900 dark:text-white"
               onClick={(e) => {
                 e.stopPropagation()
-                toast('Message envoyé !', { icon: <MessageSquareDot/>  })
+                toast('Message envoyé !', { icon: <MessageSquareDot /> })
               }}
             >
-              <MessageCircleMoreIcon/>
+              <MessageCircleMoreIcon />
             </button>
           </div>
         </div>

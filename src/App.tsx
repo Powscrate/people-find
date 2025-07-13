@@ -22,7 +22,6 @@ function App() {
     // Si aucun thème n'est sauvegardé, on vérifie les préférences système
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [genderFilter, setGenderFilter] = useState<'male' | 'female' | undefined>(undefined)
   const { data, isLoading, isError } = useUsers(genderFilter)
 
@@ -44,9 +43,9 @@ function App() {
   }, [isDarkMode]);
 
   return (
-    <div className="min-h-screen p-10">
+    <div className="min-h-screen p-10 bg-[#fefabe] dark:bg-zinc-900">
       <Toaster position="bottom-right" />
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+      <h1 className="text-3xl font-bold text-orange-600 dark:text-white mb-8">
         PeopleFind
       </h1>
       <p className="text-gray-600 dark:text-gray-300 mb-6">Bienvenue sur PeopleFind, recherchez les personnes que vous connaissez.</p>
